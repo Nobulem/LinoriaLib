@@ -5467,24 +5467,18 @@ function Library:CreateWindow(...)
         OriginalTitle = Config.Title; Title = Config.Title;
     };
 
--- keep your Outer frame creation the same
-local Outer = Library:Create('Frame', {
-    Name = 'MainOuterFrame';
-    Size = UDim2.fromOffset(550, 400);
-    Position = UDim2.new(0.5, -275, 0.5, -200);
-    BackgroundColor3 = Library.MainColor;
-    BorderColor3 = Library.OutlineColor;
-    Parent = Library.ScreenGui;
-})
-
--- 🔹 Add the corner AFTER creation
-local UICorner_Main = Instance.new("UICorner")
-UICorner_Main.CornerRadius = UDim.new(0, 20) -- just controls roundness
-UICorner_Main.Parent = Outer
-
-LibraryMainOuterFrame = Outer
-
-
+    local Outer = Library:Create('Frame', {
+        AnchorPoint = Config.AnchorPoint;
+        BackgroundColor3 = Color3.new(0, 0, 0);
+        BorderSizePixel = 0;
+        Position = Config.Position;
+        Size = Config.Size;
+        Visible = false;
+        ZIndex = 1;
+        Parent = ScreenGui;
+        Name = "Window";
+    });
+    LibraryMainOuterFrame = Outer;
     Library:MakeDraggable(Outer, 25, true);
 
     if Config.Resizable then
