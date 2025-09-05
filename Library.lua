@@ -2803,22 +2803,36 @@ do
         local IsVisible = if typeof(Button.Visible) == "boolean" then Button.Visible else true;
 
         local function CreateBaseButton(Button)
-            local Outer = Library:Create('Frame', {
-                BackgroundColor3 = Color3.new(0, 0, 0);
-                BorderColor3 = Color3.new(0, 0, 0);
-                Size = UDim2.new(1, -4, 0, 20);
-                Visible = IsVisible;
-                ZIndex = 5;
-            });
+-- First, find the Outer frame creation in the CreateWindow function
+local Outer = Library:Create('Frame', {
+    Name = 'MainOuterFrame';
+    Size = UDim2.fromOffset(550, 400);
+    Position = UDim2.new(0.5, -275, 0.5, -200);
+    BackgroundColor3 = Library.MainColor;
+    BorderColor3 = Library.OutlineColor;
+    Parent = Library.ScreenGui;
+})
 
-            local Inner = Library:Create('Frame', {
-                BackgroundColor3 = Library.MainColor;
-                BorderColor3 = Library.OutlineColor;
-                BorderMode = Enum.BorderMode.Inset;
-                Size = UDim2.new(1, 0, 1, 0);
-                ZIndex = 6;
-                Parent = Outer;
-            });
+-- Add this right after creating the Outer frame:
+local UICorner_Main = Instance.new("UICorner")
+UICorner_Main.CornerRadius = UDim.new(0, 6)
+UICorner_Main.Parent = Outer                                                          
+
+-- Then find the Inner frame creation and add a corner to it too:
+local Inner = Library:Create('Frame', {
+    BackgroundColor3 = Library.MainColor;
+    BorderColor3 = Library.AccentColor;
+    BorderMode = Enum.BorderMode.Inset;
+    Position = UDim2.new(0, 1, 0, 1);
+    Size = UDim2.new(1, -2, 1, -2);
+    ZIndex = 1;
+    Parent = Outer;
+})
+
+-- Add this after creating the Inner frame:
+local UICorner_Inner = Instance.new("UICorner")
+UICorner_Inner.CornerRadius = UDim.new(0, 5)  -- Slightly smaller radius for inner frame
+UICorner_Inner.Parent = Inner
 
             local Label = Library:CreateLabel({
                 Size = UDim2.new(1, 0, 1, 0);
