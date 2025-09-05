@@ -2813,10 +2813,9 @@ local Outer = Library:Create('Frame', {
     Parent = Library.ScreenGui;
 })
 
--- Add this right after creating the Outer frame:
-local UICorner_Main = Instance.new("UICorner")
-UICorner_Main.CornerRadius = UDim.new(0, 6)
-UICorner_Main.Parent = Outer                                                          
+local UICorner_Outer = Instance.new("UICorner")
+UICorner_Outer.CornerRadius = UDim.new(0, 8)  -- Adjust this value for more/less rounding
+UICorner_Outer.Parent = Outer                                                      
 
 -- Then find the Inner frame creation and add a corner to it too:
 local Inner = Library:Create('Frame', {
@@ -2829,10 +2828,10 @@ local Inner = Library:Create('Frame', {
     Parent = Outer;
 })
 
--- Add this after creating the Inner frame:
 local UICorner_Inner = Instance.new("UICorner")
-UICorner_Inner.CornerRadius = UDim.new(0, 5)  -- Slightly smaller radius for inner frame
+UICorner_Inner.CornerRadius = UDim.new(0, 6)  -- Slightly smaller radius for inner frame
 UICorner_Inner.Parent = Inner
+
 
             local Label = Library:CreateLabel({
                 Size = UDim2.new(1, 0, 1, 0);
@@ -5523,29 +5522,42 @@ function Library:CreateWindow(...)
         Parent = Inner;
     });
 
-    local MainSectionOuter = Library:Create('Frame', {
-        BackgroundColor3 = Library.BackgroundColor;
-        BorderColor3 = Library.OutlineColor;
-        Position = UDim2.new(0, 8, 0, 25);
-        Size = UDim2.new(1, -16, 1, -33);
-        ZIndex = 1;
-        Parent = Inner;
-    });
+local MainSectionOuter = Library:Create('Frame', {
+    BackgroundColor3 = Library.BackgroundColor;
+    BorderColor3 = Library.OutlineColor;
+    Position = UDim2.new(0, 8, 0, 25);
+    Size = UDim2.new(1, -16, 1, -33);
+    ZIndex = 1;
+    Parent = Inner;
+})
+
+-- Add UICorner to the MainSectionOuter frame
+local UICorner_MainSectionOuter = Instance.new("UICorner")
+UICorner_MainSectionOuter.CornerRadius = UDim.new(0, 6)
+UICorner_MainSectionOuter.Parent = MainSectionOuter
+                                                                                                                                                                                                                                
+                                                                                                                                                                                                                               
 
     Library:AddToRegistry(MainSectionOuter, {
         BackgroundColor3 = 'BackgroundColor';
         BorderColor3 = 'OutlineColor';
     });
 
-    local MainSectionInner = Library:Create('Frame', {
-        BackgroundColor3 = Library.BackgroundColor;
-        BorderColor3 = Color3.new(0, 0, 0);
-        BorderMode = Enum.BorderMode.Inset;
-        Position = UDim2.new(0, 0, 0, 0);
-        Size = UDim2.new(1, 0, 1, 0);
-        ZIndex = 1;
-        Parent = MainSectionOuter;
-    });
+local MainSectionInner = Library:Create('Frame', {
+    BackgroundColor3 = Library.BackgroundColor;
+    BorderColor3 = Color3.new(0, 0, 0);
+    BorderMode = Enum.BorderMode.Inset;
+    Position = UDim2.new(0, 0, 0, 0);
+    Size = UDim2.new(1, 0, 1, 0);
+    ZIndex = 1;
+    Parent = MainSectionOuter;
+})
+
+-- Add UICorner to the MainSectionInner frame
+local UICorner_MainSectionInner = Instance.new("UICorner")
+UICorner_MainSectionInner.CornerRadius = UDim.new(0, 4)
+UICorner_MainSectionInner.Parent = MainSectionInner
+
 
     Library:AddToRegistry(MainSectionInner, {
         BackgroundColor3 = 'BackgroundColor';
@@ -5591,14 +5603,19 @@ function Library:CreateWindow(...)
         Parent = TabArea;
     });
 
-    local TabContainer = Library:Create('Frame', {
-        BackgroundColor3 = Library.MainColor;
-        BorderColor3 = Library.OutlineColor;
-        Position = UDim2.new(0, 8, 0, 30);
-        Size = UDim2.new(1, -16, 1, -38);
-        ZIndex = 2;
-        Parent = MainSectionInner;
-    });
+local TabContainer = Library:Create('Frame', {
+    BackgroundColor3 = Library.MainColor;
+    BorderColor3 = Library.OutlineColor;
+    Position = UDim2.new(0, 8, 0, 30);
+    Size = UDim2.new(1, -16, 1, -38);
+    ZIndex = 2;
+    Parent = MainSectionInner;
+})
+
+-- Add UICorner to the TabContainer frame
+local UICorner_TabContainer = Instance.new("UICorner")
+UICorner_TabContainer.CornerRadius = UDim.new(0, 4)
+UICorner_TabContainer.Parent = TabContainer
     
     local InnerVideoBackground = Library:Create('VideoFrame', {
         BackgroundColor3 = Library.MainColor;
