@@ -2803,7 +2803,7 @@ do
         local IsVisible = if typeof(Button.Visible) == "boolean" then Button.Visible else true;
 
         local function CreateBaseButton(Button)
--- First, find the Outer frame creation in the CreateWindow function
+-- Find the Outer frame creation in the CreateWindow function
 local Outer = Library:Create('Frame', {
     Name = 'MainOuterFrame';
     Size = UDim2.fromOffset(550, 400);
@@ -2813,11 +2813,12 @@ local Outer = Library:Create('Frame', {
     Parent = Library.ScreenGui;
 })
 
+-- Add UICorner to the Outer frame (this will round the blue border)
 local UICorner_Outer = Instance.new("UICorner")
-UICorner_Outer.CornerRadius = UDim.new(0, 8)  -- Adjust this value for more/less rounding
-UICorner_Outer.Parent = Outer                                                      
+UICorner_Outer.CornerRadius = UDim.new(0, 8)
+UICorner_Outer.Parent = Outer                                                
 
--- Then find the Inner frame creation and add a corner to it too:
+-- Find the Inner frame creation (this has the blue accent color border)
 local Inner = Library:Create('Frame', {
     BackgroundColor3 = Library.MainColor;
     BorderColor3 = Library.AccentColor;
@@ -2828,9 +2829,11 @@ local Inner = Library:Create('Frame', {
     Parent = Outer;
 })
 
+-- Add UICorner to the Inner frame (this will round the blue accent border)
 local UICorner_Inner = Instance.new("UICorner")
-UICorner_Inner.CornerRadius = UDim.new(0, 6)  -- Slightly smaller radius for inner frame
+UICorner_Inner.CornerRadius = UDim.new(0, 6)
 UICorner_Inner.Parent = Inner
+
 
 
             local Label = Library:CreateLabel({
@@ -5522,6 +5525,7 @@ function Library:CreateWindow(...)
         Parent = Inner;
     });
 
+-- Find the MainSectionOuter frame creation (this is the grey background)
 local MainSectionOuter = Library:Create('Frame', {
     BackgroundColor3 = Library.BackgroundColor;
     BorderColor3 = Library.OutlineColor;
@@ -5531,10 +5535,11 @@ local MainSectionOuter = Library:Create('Frame', {
     Parent = Inner;
 })
 
--- Add UICorner to the MainSectionOuter frame
+-- Add UICorner to the MainSectionOuter frame (this will round the grey background)
 local UICorner_MainSectionOuter = Instance.new("UICorner")
 UICorner_MainSectionOuter.CornerRadius = UDim.new(0, 6)
 UICorner_MainSectionOuter.Parent = MainSectionOuter
+
                                                                                                                                                                                                                                 
                                                                                                                                                                                                                                
 
@@ -5543,6 +5548,7 @@ UICorner_MainSectionOuter.Parent = MainSectionOuter
         BorderColor3 = 'OutlineColor';
     });
 
+-- Find the MainSectionInner frame creation
 local MainSectionInner = Library:Create('Frame', {
     BackgroundColor3 = Library.BackgroundColor;
     BorderColor3 = Color3.new(0, 0, 0);
@@ -5603,6 +5609,7 @@ UICorner_MainSectionInner.Parent = MainSectionInner
         Parent = TabArea;
     });
 
+-- Find the TabContainer frame creation
 local TabContainer = Library:Create('Frame', {
     BackgroundColor3 = Library.MainColor;
     BorderColor3 = Library.OutlineColor;
@@ -5616,6 +5623,7 @@ local TabContainer = Library:Create('Frame', {
 local UICorner_TabContainer = Instance.new("UICorner")
 UICorner_TabContainer.CornerRadius = UDim.new(0, 4)
 UICorner_TabContainer.Parent = TabContainer
+
     
     local InnerVideoBackground = Library:Create('VideoFrame', {
         BackgroundColor3 = Library.MainColor;
