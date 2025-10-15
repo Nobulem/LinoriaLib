@@ -5467,17 +5467,24 @@ function Library:CreateWindow(...)
         OriginalTitle = Config.Title; Title = Config.Title;
     };
 
-    local Outer = Library:Create('Frame', {
-        AnchorPoint = Config.AnchorPoint;
-        BackgroundColor3 = Color3.new(0, 0, 0);
-        BorderSizePixel = 0;
-        Position = Config.Position;
-        Size = Config.Size;
-        Visible = false;
-        ZIndex = 1;
-        Parent = ScreenGui;
-        Name = "Window";
-    });
+local Outer = Library:Create('Frame', {
+    AnchorPoint = Config.AnchorPoint;
+    BackgroundColor3 = Color3.new(0, 0, 0);
+    BorderSizePixel = 0;
+    Position = Config.Position;
+    Size = Config.Size;
+    Visible = false;
+    ZIndex = 1;
+    Parent = ScreenGui;
+    Name = "Window";
+});
+
+-- Add rounded corners to the outer frame
+local UICorner_Outer = Instance.new("UICorner")
+UICorner_Outer.CornerRadius = UDim.new(0, 6)
+UICorner_Outer.Parent = Outer
+
+                                                                                                                                                                                                                                
     LibraryMainOuterFrame = Outer;
     Library:MakeDraggable(Outer, 25, true);
 
@@ -5485,15 +5492,22 @@ function Library:CreateWindow(...)
         Library:MakeResizable(Outer, Library.MinSize);
     end
 
-    local Inner = Library:Create('Frame', {
-        BackgroundColor3 = Library.MainColor;
-        BorderColor3 = Library.AccentColor;
-        BorderMode = Enum.BorderMode.Inset;
-        Position = UDim2.new(0, 1, 0, 1);
-        Size = UDim2.new(1, -2, 1, -2);
-        ZIndex = 1;
-        Parent = Outer;
-    });
+
+-- Then find where the Inner frame is created (it should be right after the Outer frame)
+local Inner = Library:Create('Frame', {
+    BackgroundColor3 = Library.MainColor;
+    BorderColor3 = Library.AccentColor;
+    BorderMode = Enum.BorderMode.Inset;
+    Position = UDim2.new(0, 1, 0, 1);
+    Size = UDim2.new(1, -2, 1, -2);
+    ZIndex = 1;
+    Parent = Outer;
+});
+
+-- Add rounded corners to the inner frame (blue accent border)
+local UICorner_Inner = Instance.new("UICorner")
+UICorner_Inner.CornerRadius = UDim.new(0, 5)
+UICorner_Inner.Parent = Inner
 
     Library:AddToRegistry(Inner, {
         BackgroundColor3 = 'MainColor';
